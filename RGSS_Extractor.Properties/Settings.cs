@@ -1,4 +1,3 @@
-using System;
 using System.CodeDom.Compiler;
 using System.Configuration;
 using System.Runtime.CompilerServices;
@@ -9,11 +8,11 @@ namespace RGSS_Extractor.Properties
      CompilerGenerated]
     internal sealed class Settings : ApplicationSettingsBase
     {
-        private static Settings defaultInstance = (Settings)SettingsBase.Synchronized(new Settings());
+        private static readonly Settings DefaultInstance = (Settings)Synchronized(new Settings());
 
         public static Settings Default
         {
-            get { return Settings.defaultInstance; }
+            get { return DefaultInstance; }
         }
     }
 }

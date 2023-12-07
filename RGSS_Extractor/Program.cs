@@ -27,23 +27,23 @@ namespace RGSS_Extractor
         {
             if (args.Length > 0)
             {
-                IntPtr foregroundWindow = Program.GetForegroundWindow();
+                var foregroundWindow = GetForegroundWindow();
                 int processId;
-                Program.GetWindowThreadProcessId(foregroundWindow, out processId);
-                Process processById = Process.GetProcessById(processId);
+                GetWindowThreadProcessId(foregroundWindow, out processId);
+                var processById = Process.GetProcessById(processId);
                 if (processById.ProcessName == "cmd")
                 {
-                    Program.AttachConsole(processById.Id);
+                    AttachConsole(processById.Id);
                 }
                 else
                 {
-                    Program.AllocConsole();
+                    AllocConsole();
                 }
 
-                Main_Parser main_Parser = new Main_Parser();
-                main_Parser.parse_file(args[0]);
-                main_Parser.export_archive();
-                Program.FreeConsole();
+                var mainParser = new MainParser();
+                mainParser.ParseFile(args[0]);
+                mainParser.ExportArchive();
+                FreeConsole();
                 return;
             }
 

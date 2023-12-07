@@ -23,7 +23,8 @@ namespace RGSS_Extractor.Properties
             {
                 if (Resources.resourceMan == null)
                 {
-                    ResourceManager resourceManager = new ResourceManager("RGSS_Extractor.Properties.Resources",
+                    ResourceManager resourceManager = new ResourceManager(
+                        "RGSS_Extractor.Properties.Resources",
                         typeof(Resources).Assembly);
                     Resources.resourceMan = resourceManager;
                 }
