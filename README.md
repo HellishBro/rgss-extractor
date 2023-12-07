@@ -25,7 +25,7 @@ The RGSS Extractor is a .NET 8.0 WinForms tool that allows users to open these f
 * View the list of contained assets in a user-friendly interface.
 * Extract the whole archive or individual assets for further manipulation or use.
 
-![Showcase](images/showcase.png)
+![Showcase](images/showcase.jpg)
 
 ## Credits
 
