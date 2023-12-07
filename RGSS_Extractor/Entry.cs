@@ -1,15 +1,14 @@
-namespace RGSS_Extractor
+namespace RGSS_Extractor;
+
+public class Entry
 {
-    public class Entry
-    {
-        public string Name;
+    public string Name;
 
-        public long Offset;
+    public long Offset;
 
-        public long Size;
+    public long Size;
 
-        public int DataKey;
+    public int DataKey;
 
-        public byte[] Data;
-    }
+    public byte[] Data;
 }
