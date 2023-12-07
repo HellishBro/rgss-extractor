@@ -8,7 +8,7 @@ The RGSS Extractor is a .NET 8.0 WinForms tool that allows users to open these f
 
 ### Method 1: Using the Release Build
 
-1. Navigate to the Releases tab of this repository.
+1. Navigate to the [Releases](https://github.com/xHarlock/rgss-extractor/releases) tab of this repository.
 2. Download the latest `.zip` file.
 3. Unpack the zip file in a directory of your choice.
 4. Run the `RGSS Extractor.exe` file to start the tool.
