@@ -1,8 +1,8 @@
 name: .NET Release Workflow
 
 on:
-   push:
-     branches: [ main ]
+  push:
+    branches: [ main ]
 
 jobs:
   build:
@@ -25,31 +25,22 @@ jobs:
     - name: Zip the output
       run: Compress-Archive -Path publish/* -DestinationPath release.zip
 
-    - name: Generate tag name
-      id: tag_name
+    # Get Release ID for the existing release
+    - name: Get Release ID
+      id: get_release
       run: |
-        $tag = "release-" + $(Get-Date -Format "yyyyMMddHHmmss")
-        echo "RELEASE_TAG=$tag" >> $GITHUB_ENV
+        echo "RELEASE_ID=$(curl -s -X GET -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        -H "Accept: application/vnd.github.v3+json" \
+        "https://api.github.com/repos/${{ github.repository }}/releases/tags/v1.0" | jq -r .id)" >> $GITHUB_ENV
+      shell: bash
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.RELEASE_TAG }}
-        release_name: Release ${{ env.RELEASE_TAG }}
-        draft: false
-        prerelease: false
-        body: "Release of ${{ github.repository }} for Win64 at ${{ github.sha }}"
-        commitish: main
-
+    # Upload Release Asset to the existing release
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./release-win64.zip
+        upload_url: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}/assets?name=release-win64.zip
+        asset_path: ./release.zip
         asset_name: release-win64.zip
         asset_content_type: application/zip
