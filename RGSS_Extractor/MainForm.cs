@@ -83,53 +83,45 @@ namespace RGSS_Extractor
 
 		private void ExportArchive()
 		{
-			if (this.parser == null)
-			{
-				return;
-			}
-			this.parser.ExportArchive();
+			parser?.ExportArchive();
 		}
 
 		private void CloseArchive()
 		{
 			if (this.archivePath != "")
 			{
-				this.explorerView.Nodes.Clear();
-				this.previewPictureBox.Image = null;
-				this.parser.CloseFile();
+				explorerView.Nodes.Clear();
+				previewPictureBox.Image = null;
+				parser.CloseFile();
 			}
 		}
 
 		private void BuildFileList(List<Entry> entries)
 		{
-			for (int i = 0; i < entries.Count; i++)
+			foreach (var entry in entries)
 			{
-				Entry entry = entries[i];
-				string[] array = entry.Name.Split(new char[]
-				{
-					Path.DirectorySeparatorChar
-				});
-				TreeNode node = this.GetRoot(array[0]);
-				this.AddPath(node, array, entry);
+				var array = entry.Name.Split(Path.DirectorySeparatorChar);
+				var node = GetRoot(array[0]);
+				AddPath(node, array, entry);
 			}
 		}
 
-		private void AddPath(TreeNode node, string[] pathbits, Entry e)
+		private void AddPath(TreeNode node, string[] pathBits, Entry e)
 		{
-			for (int i = 1; i < pathbits.Length; i++)
+			for (var i = 1; i < pathBits.Length; i++)
 			{
-				node = this.AddNode(node, pathbits[i]);
+				node = AddNode(node, pathBits[i]);
 			}
 			node.Tag = e;
 		}
 
 		private TreeNode GetRoot(string key)
 		{
-			if (this.explorerView.Nodes.ContainsKey(key))
+			if (explorerView.Nodes.ContainsKey(key))
 			{
-				return this.explorerView.Nodes[key];
+				return explorerView.Nodes[key];
 			}
-			return this.explorerView.Nodes.Add(key, key);
+			return explorerView.Nodes.Add(key, key);
 		}
 
 		private TreeNode AddNode(TreeNode node, string key)
